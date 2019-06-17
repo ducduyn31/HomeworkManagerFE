@@ -18,13 +18,14 @@ import Home from '../routes/Home';
 import Private from '../routes/Private';
 import NotFound from '../routes/NotFound';
 
-import Header from '../components/Header';
+import Header from '../components/Header/Header';
 import SystemAlerts from './SystemAlerts';
 
 import Footer from '../components/Footer';
 import GlobalStyles from '../components/GlobalStyles';
 import RoutePublic from '../components/RoutePublic';
 import RoutePrivate from '../components/RoutePrivate';
+import Editor from './editor/Editor';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -78,7 +79,7 @@ export class App extends React.Component {
               titleTemplate={`%s | ${config.name}`}
               titleAttributes={{ itemprop: 'name', lang: 'pt-br' }}
             />
-            {user.isAuthenticated && <Header dispatch={dispatch} user={user} />}
+            <Header dispatch={dispatch} user={user} />
             <Main isAuthenticated={user.isAuthenticated}>
               <Switch>
                 <RoutePublic
@@ -90,12 +91,17 @@ export class App extends React.Component {
                 <RoutePrivate
                   isAuthenticated={user.isAuthenticated}
                   path="/private"
+                  component={Editor}
+                />
+                <RoutePrivate
+                  isAuthenticated={user.isAuthenticated}
+                  path="/github"
                   component={Private}
                 />
                 <Route component={NotFound} />
               </Switch>
             </Main>
-            <Footer />
+            {user.isAuthenticated && <Footer />}
             <SystemAlerts />
             <GlobalStyles />
           </AppWrapper>

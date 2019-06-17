@@ -1,5 +1,6 @@
-import createHistory from 'history/createBrowserHistory';
 import qs from 'qs';
+
+const createHistory = require('history').createBrowserHistory;
 
 const history = createHistory();
 
